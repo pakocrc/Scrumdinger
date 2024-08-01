@@ -9,19 +9,31 @@ import SwiftUI
 
 @main
 struct ScrumdingerApp: App {
-    @State private var scrums = DailyScrum.sampleData
+    //    @State private var scrums = DailyScrum.sampleData
+    @StateObject private var scrumStore = ScrumStore()
+
     var body: some Scene {
         WindowGroup {
-            ScrumsView(scrums: $scrums)
-                .onAppear(perform: {
-                    print("Scrums view on appear!")
-                })
-                .onDisappear(perform: {
-                    print("Scrums view on disappear!")
-                })
-                .task(priority: TaskPriority.high) {
-                    print("Scrums view task with task priority: \(TaskPriority.high.description)")
+            ScrumsView(scrums: $scrumStore.scrums, saveAction: {
+                Task {
+                    do {
+                        try await scrumStore.save(scrums: scrumStore.scrums)
+                    } catch {
+                        print("[ScrumdingerApp] Exception catched while saving: \(error.localizedDescription)")
+                    }
                 }
+            })
+            .task(priority: .high) {
+                print("Scrums view task with task priority: \(TaskPriority.high.description)")
+                Task {
+                    do {
+                        try await scrumStore.load()
+                    }  catch {
+                        print("[ScrumdingerApp] Exception catched while loading: \(error.localizedDescription)")
+                    }
+                }
+            }
         }
     }
 }
+//xcrun simctl get_app_container booted com.automata.Scrumdinger data

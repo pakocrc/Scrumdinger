@@ -13,6 +13,7 @@
 		8A0110562C52EE720054C6DA /* TrailingIconLabelStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0110552C52EE720054C6DA /* TrailingIconLabelStyle.swift */; };
 		8A0110582C5303F20054C6DA /* ScrumsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0110572C5303F20054C6DA /* ScrumsView.swift */; };
 		8A01105A2C5317700054C6DA /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A0110592C5317700054C6DA /* DetailView.swift */; };
+		8A1599B72C5C0EF300E17E3A /* ScrumStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A1599B62C5C0EF300E17E3A /* ScrumStore.swift */; };
 		8AC0DB4C2C51D42000CA3927 /* ScrumdingerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0DB4B2C51D42000CA3927 /* ScrumdingerApp.swift */; };
 		8AC0DB4E2C51D42000CA3927 /* MeetingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8AC0DB4D2C51D42000CA3927 /* MeetingView.swift */; };
 		8AC0DB502C51D42200CA3927 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8AC0DB4F2C51D42200CA3927 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 		8A0110552C52EE720054C6DA /* TrailingIconLabelStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailingIconLabelStyle.swift; sourceTree = "<group>"; };
 		8A0110572C5303F20054C6DA /* ScrumsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrumsView.swift; sourceTree = "<group>"; };
 		8A0110592C5317700054C6DA /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		8A1599B62C5C0EF300E17E3A /* ScrumStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrumStore.swift; sourceTree = "<group>"; };
 		8AC0DB482C51D42000CA3927 /* Scrumdinger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scrumdinger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AC0DB4B2C51D42000CA3927 /* ScrumdingerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrumdingerApp.swift; sourceTree = "<group>"; };
 		8AC0DB4D2C51D42000CA3927 /* MeetingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingView.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 		8A01104C2C52E5A90054C6DA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8A1599B52C5C0EC300E17E3A /* Stores */,
 				8AECEAC32C5B0EE100E7246B /* AVPlayer+Ding.swift */,
 				8A01104F2C52E7600054C6DA /* DailyScrum.swift */,
 				8AECEABB2C5AE05100E7246B /* ScrumTimer.swift */,
@@ -115,6 +118,14 @@
 				8AECEACC2C5B2D3A00E7246B /* History.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		8A1599B52C5C0EC300E17E3A /* Stores */ = {
+			isa = PBXGroup;
+			children = (
+				8A1599B62C5C0EF300E17E3A /* ScrumStore.swift */,
+			);
+			path = Stores;
 			sourceTree = "<group>";
 		};
 		8AC0DB3F2C51D42000CA3927 = {
@@ -347,6 +358,7 @@
 				8AECEAC22C5B0B3400E7246B /* MeetingFooterView.swift in Sources */,
 				8AECEAC02C5B058C00E7246B /* ScrumProgressViewStyle.swift in Sources */,
 				8A01105A2C5317700054C6DA /* DetailView.swift in Sources */,
+				8A1599B72C5C0EF300E17E3A /* ScrumStore.swift in Sources */,
 				8ADE0B652C545DAE004C69CC /* DetailEditView.swift in Sources */,
 				8A0110582C5303F20054C6DA /* ScrumsView.swift in Sources */,
 				8A0110562C52EE720054C6DA /* TrailingIconLabelStyle.swift in Sources */,
@@ -525,6 +537,7 @@
 				DEVELOPMENT_TEAM = GFG4A69RG7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Scrumdinger2;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -534,7 +547,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.automata.Scrumdinger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -554,6 +567,7 @@
 				DEVELOPMENT_TEAM = GFG4A69RG7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Scrumdinger2;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -563,7 +577,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.automata.Scrumdinger;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
