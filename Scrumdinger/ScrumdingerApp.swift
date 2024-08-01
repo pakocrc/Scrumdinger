@@ -11,6 +11,7 @@ import SwiftUI
 struct ScrumdingerApp: App {
     //    @State private var scrums = DailyScrum.sampleData
     @StateObject private var scrumStore = ScrumStore()
+    @State private var errorWrapper: ErrorWrapper?
 
     var body: some Scene {
         WindowGroup {
@@ -20,19 +21,23 @@ struct ScrumdingerApp: App {
                         try await scrumStore.save(scrums: scrumStore.scrums)
                     } catch {
                         print("[ScrumdingerApp] Exception catched while saving: \(error.localizedDescription)")
+                        errorWrapper = ErrorWrapper(error: error, guidance: "Try again later")
                     }
                 }
             })
-            .task(priority: .high) {
-                print("Scrums view task with task priority: \(TaskPriority.high.description)")
-                Task {
-                    do {
-                        try await scrumStore.load()
-                    }  catch {
-                        print("[ScrumdingerApp] Exception catched while loading: \(error.localizedDescription)")
-                    }
+            .task {
+                do {
+                    try await scrumStore.load()
+                }  catch {
+                    print("[ScrumdingerApp] Exception catched while loading: \(error.localizedDescription)")
+                    errorWrapper = ErrorWrapper(error: error, guidance: "App will load sample data and continue")
                 }
             }
+            .sheet(item: $errorWrapper, onDismiss: {
+                scrumStore.scrums = DailyScrum.sampleData
+            }, content: { wrapper in
+                ErrorView(errorWrapper: wrapper)
+            })
         }
     }
 }
