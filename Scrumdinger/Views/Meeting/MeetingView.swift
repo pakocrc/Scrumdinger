@@ -13,6 +13,7 @@ struct MeetingView: View {
     @StateObject var scrumTimer = ScrumTimer()
     @StateObject var speechRecognizer = SpeechRecognizer()
     @State private var isRecording = false
+    @Environment (\.dismiss) var dismiss
 
     private var player: AVPlayer { AVPlayer.sharedDingPlayer }
 
@@ -27,7 +28,7 @@ struct MeetingView: View {
 
                 MeetingTimerView(speakers: scrumTimer.speakers, theme: scrum.theme, isRecording: isRecording)
 
-                MeetingFooterView(speakers: scrumTimer.speakers, skipAction: scrumTimer.skipSpeaker)
+                MeetingFooterView(speakers: scrumTimer.speakers, skipAction: skipSpeaker)
             }
         }
         .padding()
@@ -35,6 +36,24 @@ struct MeetingView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onAppear(perform: startScrum)
         .onDisappear(perform: endScrum)
+        .toolbar(content: {
+            ToolbarItem(placement: .confirmationAction) {
+                Button {
+                    endScrum()
+                    dismiss()
+
+                } label: {
+                    Text("Finish")
+                }
+//                .disabled(scrumTimer.activeSpeaker == scrumTimer.speakers.first )
+            }
+        })
+    }
+
+    private func skipSpeaker() {
+        player.seek(to: .zero)
+        player.play()
+        scrumTimer.skipSpeaker()
     }
 
     private func startScrum() {

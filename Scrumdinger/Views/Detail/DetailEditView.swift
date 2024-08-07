@@ -23,7 +23,7 @@ struct DetailEditView: View {
                         .fontWeight(.bold)
                         .accessibilityHidden(true)
                 }
-                Slider(value: $scrum.lengthInMinutesAsDobule, in: 5...30, step: 1) {
+                Slider(value: $scrum.lengthInMinutesAsDobule, in: 1...30, step: 1) {
                     Text("Length")
                 }
                 .accessibilityValue("\(scrum.lengthInMinutes) minutes")

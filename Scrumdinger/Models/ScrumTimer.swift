@@ -17,7 +17,7 @@ final class ScrumTimer: ObservableObject {
 
     @Published var activeSpeaker = ""
     @Published var secondsElapsed = 0
-    @Published var secondsRemaining = 0
+    @Published var secondsRemaining = -4
     private (set) var speakers: [Speaker] = []
     private(set) var lengthInMinutes: Int
     var speakerChangedAction: (() -> Void)?
@@ -39,8 +39,8 @@ final class ScrumTimer: ObservableObject {
     init(lengthInMinutes: Int = 0, attendees: [DailyScrum.Attendee] = []) {
         self.lengthInMinutes = lengthInMinutes
         self.speakers = attendees.speakers
-        secondsRemaining = lengthInSeconds
-        activeSpeaker = speakerText
+        self.secondsRemaining = lengthInSeconds
+        self.activeSpeaker = speakerText
     }
 
     /// Start the timer.
@@ -48,7 +48,7 @@ final class ScrumTimer: ObservableObject {
         timer = Timer.scheduledTimer(withTimeInterval: frequency, repeats: true) { [weak self] timer in
             self?.update()
         }
-        timer?.tolerance = 0.1
+        timer?.tolerance = 0
         changeToSpeaker(at: 0)
     }
 
@@ -83,8 +83,9 @@ final class ScrumTimer: ObservableObject {
     nonisolated private func update() {
 
         Task { @MainActor in
-            guard let startDate,
-                  !timerStopped else { return }
+            guard let startDate,!timerStopped else {
+                return
+            }
             let secondsElapsed = Int(Date().timeIntervalSince1970 - startDate.timeIntervalSince1970)
             secondsElapsedForSpeaker = secondsElapsed
             self.secondsElapsed = secondsPerSpeaker * speakerIndex + secondsElapsedForSpeaker

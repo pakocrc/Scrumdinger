@@ -10,6 +10,8 @@ import SwiftUI
 struct MeetingFooterView: View {
     let speakers: [ScrumTimer.Speaker]
     var skipAction: ()->Void
+    @Environment (\.dismiss) var dismiss
+
     private var speakerNumber: Int? {
         guard let index = speakers.firstIndex(where: { !$0.isCompleted }) else { return nil }
         return index + 1
@@ -27,7 +29,23 @@ struct MeetingFooterView: View {
         VStack {
             HStack {
                 if isLastSpeaker {
-                    Text("Last Speaker")
+                    VStack {
+                        Text("Last Speaker")
+                        
+                        Button {
+                            dismiss()
+                        } label: {
+                            Text("Finish")
+                        }
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(.black)
+                        .padding([.leading, .trailing])
+                        .background(Color(.red))
+                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                        .padding(.top)
+                    }
+
                 } else {
                     Text(speakerText)
                     Spacer()
